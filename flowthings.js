@@ -138,7 +138,7 @@ void function(angular, global) {
         conn.onclose = function(e) {
           cleanup();
           $apply(function() {
-            $broadcast('close', e.code, e.reason);
+            $broadcast('close', e);
           });
         };
         client.$$socket = conn;
@@ -235,6 +235,7 @@ void function(angular, global) {
       }
     }
     function cleanup() {
+      var _reps = reps;
       $timeout.cancel(timer);
       connected = false;
       conn  = null;
@@ -242,6 +243,10 @@ void function(angular, global) {
       reps  = {};
       queue = [];
       msgId = 1;
+
+      angular.forEach(_reps, function(dfd, id) {
+        dfd.reject(new Error('Connection interrupted'));
+      });
     }
     function heartbeat() {
       if (conn) {
