@@ -356,4 +356,48 @@ describe('WS Client', function() {
     expect(resp.body)
       .toEqual(true);
   });
+
+  it('send() disconnect', function() {
+    http.flush();
+
+    var resp;
+    client.send({}).then(function() { resp = 1 }, function() { resp = 2 });
+    client.$$socket.onclose({});
+
+    expect(resp)
+      .toEqual(2);
+  });
+
+  it('event open', function() {
+    http.flush();
+
+    var resp;
+    root.$on('flowthings:open', function(e, _client) { resp = _client });
+    client.$$socket.onopen();
+
+    expect(resp)
+      .toBe(client);
+  });
+
+  it('event close', function() {
+    http.flush();
+
+    var resp;
+    root.$on('flowthings:close', function(e, e2) { resp = e2 });
+    client.$$socket.onclose('test');
+
+    expect(resp)
+      .toEqual('test');
+  });
+
+  it('event error', function() {
+    http.flush();
+
+    var resp;
+    root.$on('flowthings:error', function(e) { resp = true });
+    client.$$socket.onerror();
+
+    expect(resp)
+      .toEqual(true);
+  });
 });
