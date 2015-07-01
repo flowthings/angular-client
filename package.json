@@ -4,7 +4,10 @@
   "description": "Angular client for flowthings.io",
   "main": "flowthings.js",
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "predist": "cp flowthings-angular.js dist/",
+    "dist": "uglifyjs -m -o dist/flowthings-angular.min.js dist/flowthings-angular.js",
+    "preversion": "npm run dist"
   },
   "keywords": [
     "angular",
@@ -19,6 +22,7 @@
     "jasmine-core": "^2.3.4",
     "karma": "^0.12.37",
     "karma-chrome-launcher": "^0.2.0",
-    "karma-jasmine": "^0.3.5"
+    "karma-jasmine": "^0.3.5",
+    "uglify-js": "^2.4.23"
   }
 }
