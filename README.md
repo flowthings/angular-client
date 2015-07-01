@@ -78,3 +78,17 @@ response.
 ### flowthings.drop(flowId).findMany(params)
 
 ### flowthings.drop(flowId).find(...)
+
+## Events
+
+### flowthings:open
+
+Broadcasted when a WebSocket connection opens. Returns the WebSocket client.
+
+### flowthings:error
+
+Broadcasted when a WebSocket connection errors. Returns nothing.
+
+### flowthings:close
+
+Broadcasted when a WebSocket connection closes. Returns WebSocket event object.
