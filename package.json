@@ -1,0 +1,24 @@
+{
+  "name": "flowthings-angular",
+  "version": "1.0.0",
+  "description": "Angular client for flowthings.io",
+  "main": "flowthings.js",
+  "scripts": {
+    "test": "karma start"
+  },
+  "keywords": [
+    "angular",
+    "flowthings",
+    "iot"
+  ],
+  "author": "Nathan Faubion <nathan@n-son.com> (https://github.com/natefaubion/)",
+  "license": "Apache",
+  "devDependencies": {
+    "angular": "^1.4.1",
+    "angular-mocks": "^1.4.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.37",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.5"
+  }
+}

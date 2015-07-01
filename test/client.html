@@ -1,0 +1,73 @@
+<!doctype html>
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../flowthings.js"></script>
+<script>
+  var CREDS;
+  angular.module('app', ['flowthings'])
+    .config(function(flowthingsProvider) {
+      CREDS = flowthingsProvider.options = {
+        account: '<account>',
+        token: '<token>',
+        path: '<path>'
+      };
+    })
+    .controller('MainCtrl', function($scope, flowthings) {
+      var count = 1;
+      $scope.drops = [];
+      $scope.model = CREDS;
+      $scope.status = 0;
+      $scope.connect = function() {
+        $scope.status = 1;
+        flowthings.connect().then(
+          function() { $scope.status = 3 },
+          function() { $scope.status = 2 }
+        );
+        flowthings.subscribe($scope.model.path, function(drop) {
+          $scope.drops.push(drop);
+        }).result.then(
+          function() { $scope.status = 5 },
+          function() { $scope.status = 4 }
+        );
+      };
+      $scope.publish = function() {
+        flowthings.drop.create({
+          path: $scope.model.path,
+          elems: {
+            test: count++
+          }
+        });
+      };
+    });
+</script>
+<div ng-app="app" ng-controller="MainCtrl">
+  <table>
+    <tr>
+      <th>Account</th>
+      <td><input type="text" ng-model="model.account"></td>
+    </tr>
+    <tr>
+      <th>Token</th>
+      <td><input type="text" ng-model="model.token"></td>
+    </tr>
+    <tr>
+      <th>Path</th>
+      <td><input type="text" ng-model="model.path"></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>
+        <button ng-click="connect()" ng-disabled="status">Connect</button>
+        <span ng-if="status === 1">Connecting</span>
+        <span ng-if="status === 2">Connection error</span>
+        <span ng-if="status === 3">Connected</span>
+        <span ng-if="status === 4">Subscription error</span>
+        <span ng-if="status === 5">Subscribed</span>
+      </td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><button ng-click="publish()" ng-disabled="status < 5">Publish</button></td>
+    </tr>
+  </table>
+  <pre ng-repeat="drop in drops">{{ drop }}</pre>
+</div>
