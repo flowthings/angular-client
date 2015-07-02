@@ -6,7 +6,7 @@
     "flowthings.io <dev@flowthings.io> (https://github.com/flowthings/)"
   ],
   "description": "Angular 1.x client for flowthings.io",
-  "main": "dist/flowthings-angular.js",
+  "main": "./dist/flowthings-angular.js",
   "keywords": [
     "flowthings",
     "angular",

@@ -2,7 +2,7 @@
   "name": "flowthings-angular",
   "version": "1.0.0",
   "description": "Angular client for flowthings.io",
-  "main": "flowthings.js",
+  "main": "./dist/flowthings-angular.js",
   "scripts": {
     "test": "karma start",
     "predist": "cp flowthings-angular.js dist/",
