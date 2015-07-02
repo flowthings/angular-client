@@ -14,7 +14,7 @@
     "flowthings",
     "iot"
   ],
-  "author": "Nathan Faubion <nathan@n-son.com> (https://github.com/natefaubion/)",
+  "author": "flowthings.io <dev@flowthings.io> (https://github.com/flowthings/)",
   "license": "Apache",
   "devDependencies": {
     "angular": "^1.4.1",
