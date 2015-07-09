@@ -1,15 +1,12 @@
 <!doctype html>
+<script src="../node_modules/flowthings-browser/dist/flowthings-browser.js"></script>
 <script src="../node_modules/angular/angular.js"></script>
 <script src="../flowthings-angular.js"></script>
 <script>
   var CREDS;
   angular.module('app', ['flowthings'])
     .config(function(flowthingsProvider) {
-      CREDS = flowthingsProvider.options = {
-        account: '<account>',
-        token: '<token>',
-        path: '<path>'
-      };
+      CREDS = flowthingsProvider.options = {};
     })
     .controller('MainCtrl', function($scope, flowthings) {
       var count = 1;
@@ -18,11 +15,11 @@
       $scope.status = 0;
       $scope.connect = function() {
         $scope.status = 1;
-        flowthings.connect().then(
+        flowthings.ws.connect().then(
           function() { $scope.status = 3 },
           function() { $scope.status = 2 }
         );
-        flowthings.subscribe($scope.model.path, function(drop) {
+        flowthings.ws.subscribe($scope.model.path, function(drop) {
           $scope.drops.push(drop);
         }).result.then(
           function() { $scope.status = 5 },

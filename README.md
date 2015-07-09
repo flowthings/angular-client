@@ -1,6 +1,21 @@
 flowthings-angular-client
 =========================
 
+## Install
+
+NPM
+```
+npm install flowthings-angular
+```
+
+Bower
+```
+bower install flowthings-angular
+```
+
+Dependencies:
+*   [flowthings-browser](https://github.com/flowthings/browser-client)
+
 ## Example
 
 ```js
@@ -11,7 +26,7 @@ angular.module('app', ['flowthings'])
   })
   .run(function($log, flowthings) {
     // Connect to WebSockets
-    flowthings.connect().then(function() {
+    flowthings.ws.connect().then(function() {
       $log.log('Connected');
     });
   })
@@ -20,7 +35,7 @@ angular.module('app', ['flowthings'])
     $scope.path = '/my/flow/path';
 
     // Subscribe to Drops
-    var sub = flowthings.subscribe($scope.path, function(drop) {
+    var sub = flowthings.ws.subscribe($scope.path, function(drop) {
       $scope.drops.push(drop);
     });
 
@@ -40,11 +55,11 @@ angular.module('app', ['flowthings'])
 
 ## WebSockets
 
-### flowthings.connect()
+### flowthings.ws.connect()
 
 Initiates a WebSocket connection. Returns a Promise.
 
-### flowthings.subscribe(flowIdOrPath, callback[, scope])
+### flowthings.ws.subscribe(flowIdOrPath, callback[, scope])
 
 Subscribes to the provided Flow and invokes the callback when receiving Drops.
 Providing a scope will tie the subscription to the scope's lifecycle,
@@ -52,7 +67,7 @@ automatically unsubscribing when the scope is destroyed.
 
 Returns a record of `{ unsubscribe: function, result: Promise }`
 
-### flowthings.send(command)
+### flowthings.ws.send(command)
 
 Sends arbitrary commands through the WebSocket API. Returns a Promise with the
 response.
