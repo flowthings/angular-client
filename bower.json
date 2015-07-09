@@ -1,6 +1,6 @@
 {
   "name": "flowthings-angular",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/flowthings/angular-client",
   "authors": [
     "flowthings.io <dev@flowthings.io> (https://github.com/flowthings/)"
@@ -21,6 +21,6 @@
     "tests"
   ],
   "dependencies": {
-    "flowthings-browser": "1.0.0"
+    "flowthings-browser": "1.0.1"
   }
 }

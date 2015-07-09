@@ -1,6 +1,6 @@
 {
   "name": "flowthings-angular",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Angular client for flowthings.io",
   "main": "./dist/flowthings-angular.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "author": "flowthings.io <dev@flowthings.io> (https://github.com/flowthings/)",
   "license": "Apache",
   "dependencies": {
-    "flowthings-browser": "1.0.0"
+    "flowthings-browser": "1.0.1"
   },
   "devDependencies": {
     "angular": "^1.4.1",
