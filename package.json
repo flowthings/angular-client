@@ -16,6 +16,9 @@
   ],
   "author": "flowthings.io <dev@flowthings.io> (https://github.com/flowthings/)",
   "license": "Apache",
+  "dependencies": {
+    "flowthings-browser": "1.0.0"
+  },
   "devDependencies": {
     "angular": "^1.4.1",
     "angular-mocks": "^1.4.1",

@@ -185,9 +185,9 @@ describe('WS Client', function() {
   var api, http, client, root;
 
   beforeEach(module('flowthings', function(flowthingsProvider, $provide) {
-    $provide.value('ftWebSocketBackend', function(url) {
+    $provide.value('ftWebSocket', function(url) {
       return {
-        $$url: url,
+        url: url,
         send: angular.noop
       }
     });
@@ -207,7 +207,7 @@ describe('WS Client', function() {
       }))
       .respond(response({ id: '<test_session>' }));
 
-    api.connect().then(function(_client) {
+    api.ws.connect().then(function(_client) {
       client = _client;
     });
   }));
@@ -226,7 +226,7 @@ describe('WS Client', function() {
     expect(client)
       .toBeDefined();
 
-    expect(client.$$socket.$$url)
+    expect(client.__socket.url)
       .toEqual('wss://ws.flowthings.io/session/<test_session>/ws')
   });
 
@@ -249,12 +249,12 @@ describe('WS Client', function() {
     expect(subscribed)
       .toEqual(false);
 
-    client.$$receive(json(response(true, { ok: true, msgId: 1 })));
+    client.__receive(json(response({}, { ok: true, msgId: 1 })));
 
     expect(subscribed)
       .toEqual(true);
 
-    client.$$receive(json({
+    client.__receive(json({
       type: 'message',
       value: { flowId: '<test_id>' }
     }));
@@ -265,7 +265,7 @@ describe('WS Client', function() {
     drop = undefined;
     sub.unsubscribe();
 
-    client.$$receive(json({
+    client.__receive(json({
       type: 'message',
       value: { flowId: '<test_id>' }
     }));
@@ -292,8 +292,8 @@ describe('WS Client', function() {
     expect(drop2)
       .toBeUndefined();
 
-    client.$$receive(json(response(true, { ok: true, msgId: 1 })));
-    client.$$receive(json({
+    client.__receive(json(response(true, { ok: true, msgId: 1 })));
+    client.__receive(json({
       type: 'message',
       value: { flowId: '<test_id>' }
     }));
@@ -314,8 +314,8 @@ describe('WS Client', function() {
       drop = _drop;
     }, scope);
 
-    client.$$receive(json(response(true, { ok: true, msgId: 1 })));
-    client.$$receive(json({
+    client.__receive(json(response(true, { ok: true, msgId: 1 })));
+    client.__receive(json({
       type: 'message',
       value: { flowId: '<test_id>' }
     }));
@@ -326,7 +326,7 @@ describe('WS Client', function() {
     drop = undefined;
     scope.$destroy();
 
-    client.$$receive(json({
+    client.__receive(json({
       type: 'message',
       value: { flowId: '<test_id>' }
     }));
@@ -340,7 +340,7 @@ describe('WS Client', function() {
 
     var resp;
     client.send({}).then(function(_resp) { resp = _resp });
-    client.$$receive(json(response(true, { ok: true, msgId: 1 })));
+    client.__receive(json(response(true, { ok: true, msgId: 1 })));
 
     expect(resp)
       .toEqual(true);
@@ -351,7 +351,7 @@ describe('WS Client', function() {
 
     var resp;
     client.send({}).catch(function(_resp) { resp = _resp });
-    client.$$receive(json(response(true, { ok: false, msgId: 1 })));
+    client.__receive(json(response(true, { ok: false, msgId: 1 })));
 
     expect(resp.body)
       .toEqual(true);
@@ -362,7 +362,7 @@ describe('WS Client', function() {
 
     var resp;
     client.send({}).then(function() { resp = 1 }, function() { resp = 2 });
-    client.$$socket.onclose({});
+    client.__socket.onclose({});
 
     expect(resp)
       .toEqual(2);
@@ -373,7 +373,7 @@ describe('WS Client', function() {
 
     var resp;
     root.$on('flowthings:open', function(e, _client) { resp = _client });
-    client.$$socket.onopen();
+    client.__socket.onopen();
 
     expect(resp)
       .toBe(client);
@@ -384,7 +384,7 @@ describe('WS Client', function() {
 
     var resp;
     root.$on('flowthings:close', function(e, e2) { resp = e2 });
-    client.$$socket.onclose('test');
+    client.__socket.onclose('test');
 
     expect(resp)
       .toEqual('test');
@@ -395,7 +395,7 @@ describe('WS Client', function() {
 
     var resp;
     root.$on('flowthings:error', function(e) { resp = true });
-    client.$$socket.onerror();
+    client.__socket.onerror();
 
     expect(resp)
       .toEqual(true);
