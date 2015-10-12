@@ -1,6 +1,6 @@
 {
   "name": "flowthings-angular",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Angular client for flowthings.io",
   "main": "./dist/flowthings-angular.js",
   "scripts": {
