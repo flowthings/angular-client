@@ -21,6 +21,6 @@
     "tests"
   ],
   "dependencies": {
-    "flowthings-browser": "1.0.1"
+    "flowthings-browser": "1.0.2"
   }
 }

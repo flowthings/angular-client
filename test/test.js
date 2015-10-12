@@ -179,6 +179,26 @@ describe('API Client', function() {
 
     http.flush();
   });
+
+  it('drop().aggregate', function() {
+    api.drop('<flow_id>')
+      .aggregate({
+        filter: '',
+        groupBy: [],
+        output: ['$count', '$avg:test'],
+        rules: {}
+      });
+    http
+      .expect('POST', url('/drop/<flow_id>/aggregate'), {
+        filter: '',
+        groupBy: [],
+        output: ['$count', '$avg:test'],
+        rules: {}
+      })
+      .respond({});
+
+    http.flush();
+  });
 });
 
 describe('WS Client', function() {

@@ -94,6 +94,19 @@ response.
 
 ### flowthings.drop(flowId).find(...)
 
+### flowthings.drop(flowId).aggregate(spec[, params])
+
+Aggregation spec options:
+
+*   `filter`
+*   `groupBy`
+*   `rules`
+*   `output`
+*   `sorts`
+
+Please visit the [flowthings.io aggregation documentation](https://flowthings.io/docs/flow-drop-aggregate)
+for more details on how to use these options.
+
 ## Events
 
 ### flowthings:open
